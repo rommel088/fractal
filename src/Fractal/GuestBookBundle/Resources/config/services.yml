@@ -1,0 +1,7 @@
+parameters:
+#    guest_book.example.class: Fractal\GuestBookBundle\Example
+
+services:
+#    guest_book.example:
+#        class: %guest_book.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
