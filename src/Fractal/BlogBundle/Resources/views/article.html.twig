@@ -1,19 +1,19 @@
-{% extends "BlogBundle::main.html.twig" %}
+{% extends "BlogBundle::body.html.twig" %}
 
 {% block content %}
     {% if article > 0 %}
         <div class="article-container">
             <div class="article-title">{{ article.title }}</div>
             <div class="article-date">Published: {{ article.created }}</div>
-            <div class="article-tags">
-                {% for tag in article.tags %}
-                    <a href="{{ path('blog_homepage') }}?type=tag&query={{ tag.tag }}">
-                <span class="label btn-search">
-                    #{{ tag.tag }}
-                </span>
-                    </a>
-                {% endfor %}
-            </div>
+            {#<div class="article-tags">#}
+                {#{% for tag in article.tags %}#}
+                    {#<a href="{{ path('blog_homepage') }}?type=tag&query={{ tag.tag }}">#}
+                {#<span class="label btn-search">#}
+                    {##{{ tag.tag }}#}
+                {#</span>#}
+                    {#</a>#}
+                {#{% endfor %}#}
+            {#</div>#}
             <div class="article-body">
                 <img src="{{ asset('bundles/blog/images/' ) }}{{ article.image }}" class="img-thumbnail">
                 {{ article.body }}
@@ -24,6 +24,6 @@
     {% endif %}
 {% endblock %}
 
-{% block sidebar %}
-    {{ sidebar|raw }}
-{% endblock %}
+{#{% block sidebar %}#}
+    {#{{ sidebar|raw }}#}
+{#{% endblock %}#}
