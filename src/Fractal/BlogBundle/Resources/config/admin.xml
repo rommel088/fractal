@@ -1,0 +1,18 @@
+<!-- Acme/DemoBundle/Resources/config/admin.xml -->
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <services>
+        <service id="sonata.admin.articles" class="Fractal\BlogBundle\Admin\ArticlesAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Content" label="Articles"/>
+            <argument />
+            <argument>Fractal\BlogBundle\Entity\Articles</argument>
+            <argument />
+            <call method="setTranslationDomain">
+                <argument>FractalBlogBundle</argument>
+            </call>
+        </service>
+    </services>
+</container>

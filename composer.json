@@ -40,7 +40,12 @@
         "jquery/jquery":  "1.10.*",
         "leafo/lessphp": "0.4.*@dev",
         "twitter/bootstrap": "*",
-        "components/jquery": "dev-master"
+        "components/jquery": "dev-master",
+        "knplabs/knp-menu-bundle": "1.1.*@dev",
+        "sonata-project/block-bundle": "2.2.*@dev",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "scripts": {
         "post-install-cmd": [

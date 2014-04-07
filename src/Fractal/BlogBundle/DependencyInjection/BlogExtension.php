@@ -24,5 +24,6 @@ class BlogExtension extends Extension
 
         $loader = new Loader\XMLFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('admin.xml');
     }
 }
