@@ -41,11 +41,15 @@
         "leafo/lessphp": "0.4.*@dev",
         "twitter/bootstrap": "*",
         "components/jquery": "dev-master",
+
         "knplabs/knp-menu-bundle": "1.1.*@dev",
         "sonata-project/block-bundle": "2.2.*@dev",
-        "sonata-project/admin-bundle": "dev-master",
-        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "sonata-project/admin-bundle": "2.3.*@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "2.3.*@dev",
+        "sonata-project/easy-extends-bundle": "2.1.*@dev",
+
+        "friendsofsymfony/user-bundle": "v1.3.3",
+        "sonata-project/user-bundle": "2.3.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
