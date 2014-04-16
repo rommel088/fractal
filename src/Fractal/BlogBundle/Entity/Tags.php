@@ -98,4 +98,9 @@ class Tags
     {
         return $this->article;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

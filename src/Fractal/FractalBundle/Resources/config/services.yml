@@ -1,0 +1,7 @@
+parameters:
+#    fractal.example.class: Fractal\FractalBundle\Example
+
+services:
+#    fractal.example:
+#        class: %fractal.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,8 +1,10 @@
 <?php
 
 namespace Fractal\BlogBundle\Services;
+
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Fractal\BlogBundle\Entity\TagCloud;
 
 class ViewBlog
 {
@@ -13,7 +15,7 @@ class ViewBlog
         $this->doctrine = $doctrine;
     }
 
-    public function ShowAllPosts($request, $articlesPerPage)
+    public function showAllPosts($request, $articlesPerPage)
     {
         $page = $request->get('page');
         if( !$page ) {
@@ -63,7 +65,7 @@ class ViewBlog
         return $result;
     }
 
-    public function ShowPost($slug)
+    public function showPost($slug)
     {
         $em = $this->doctrine->getEntityManager();
         $query = $em->createQuery(
@@ -84,5 +86,71 @@ class ViewBlog
         $result['updated'] = $articles->getCreated()->format('Y-m-d H:i:s');
 
         return $result;
+    }
+
+    public function showSideBar($itemsCount)
+    {
+        $em = $this->doctrine->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT p
+            FROM BlogBundle:Articles p
+            ORDER BY p.created DESC'
+        )->setMaxResults($itemsCount);
+        $articles = $query->getResult();
+        $byCreation = "";
+        foreach($articles as $key=>$value){
+            $byCreation[$key]['id'] = $value->getId();
+            $byCreation[$key]['title'] = $value->getTitle();
+            $byCreation[$key]['slug'] = $value->getSlug();
+        }
+
+        $query = $em->createQuery(
+            'SELECT p
+            FROM BlogBundle:Articles p
+            ORDER BY p.viewed DESC'
+        )->setMaxResults($itemsCount);
+        $articles = $query->getResult();
+        $byViewed = "";
+        foreach($articles as $key=>$value){
+            $byViewed[$key]['id'] = $value->getId();
+            $byViewed[$key]['title'] = $value->getTitle();
+            $byViewed[$key]['slug'] = $value->getSlug();
+        }
+
+        $query = $em->createQuery(
+            'SELECT p
+            FROM GuestBookBundle:Post p
+            ORDER BY p.created DESC'
+        )->setMaxResults($itemsCount);
+        $articles = $query->getResult();
+        $posts = "";
+        foreach($articles as $key=>$value){
+            $posts[$key]['id'] = $value->getId();
+            $posts[$key]['title'] = $value->getMessage();
+        }
+
+        $query = $em->createQuery(
+            'SELECT t.id,
+                    t.tag,
+                    COUNT(a.id) cnt
+            FROM BlogBundle:Articles a
+            JOIN a.tags t
+            GROUP BY t.id
+            ORDER BY cnt DESC')->setMaxResults(15);
+        $tags = $query->getResult();
+        $cloud = new TagCloud();
+        foreach($tags as $key=>$value){
+            $cloud->addTag(array('tag' => $value['tag'], 'url' => '/?type=tag&query='.$value['tag'], 'size' => $value['cnt']));
+        }
+        $cloud->setHtmlizeTagFunction( function($tag, $size) {
+            $link = '<a href="'.$tag['url'].'">'.$tag['tag'].'</a>';
+            return "<span class='tag size{$size}'>{$link}</span> ";
+        });
+
+        $sidebar['bycreation'] = $byCreation;
+        $sidebar['byviewed'] = $byViewed;
+        $sidebar['posts'] = $posts;
+        $sidebar['cloud'] = $cloud->render();
+        return $sidebar;
     }
 } 

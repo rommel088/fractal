@@ -1,6 +1,6 @@
 <?php
 
-namespace   Fractal\BlogBundle\Entity;
+namespace Fractal\BlogBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;

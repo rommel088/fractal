@@ -21,7 +21,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    {#{{ sidebar|raw }}#}
+    {{ include("BlogBundle::sidebar.html.twig", {sidebar: sidebar}) }}
 {% endblock %}
 
 {% block footer %}

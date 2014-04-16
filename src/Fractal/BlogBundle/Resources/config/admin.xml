@@ -14,5 +14,23 @@
                 <argument>FractalBlogBundle</argument>
             </call>
         </service>
+        <service id="sonata.admin.tags" class="Fractal\BlogBundle\Admin\TagsAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Content1" label="Tags"/>
+            <argument />
+            <argument>Fractal\BlogBundle\Entity\Tags</argument>
+            <argument />
+            <call method="setTranslationDomain">
+                <argument>FractalBlogBundle</argument>
+            </call>
+        </service>
+        <service id="sonata.admin.users" class="Sonata\UserBundle\Admin\Model\UserAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Content2" label="User"/>
+            <argument />
+            <argument>Sonata\UserBundle\Entity\User</argument>
+            <argument />
+            <call method="setTranslationDomain">
+                <argument>FractalUserBundle</argument>
+            </call>
+        </service>
     </services>
 </container>

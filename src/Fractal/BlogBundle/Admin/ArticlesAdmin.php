@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
+use Doctrine\ORM\EntityRepository;
+
 class ArticlesAdmin extends Admin
 {
     protected function configureFormFields(FormMapper $formMapper)
@@ -15,7 +17,16 @@ class ArticlesAdmin extends Admin
         $formMapper
             ->add('title', 'text')
             ->add('image', 'text')
-//            ->add('tags', 'entity', array('class' => 'Fractal\BlogBundle\Entity\Tags'))
+            ->add('tags', 'entity', array(
+                'multiple' => true,
+                'class' => 'Fractal\BlogBundle\Entity\Tags',
+                'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('tags')
+                            ->orderBy('tags.tag', 'ASC');
+                    },
+                'property' => 'tag',
+                'label' => 'tags'
+            ))
             ->add('body')
         ;
     }
@@ -25,7 +36,6 @@ class ArticlesAdmin extends Admin
     {
         $datagridMapper
             ->add('title')
-//            ->add('tags')
         ;
     }
 
@@ -35,7 +45,6 @@ class ArticlesAdmin extends Admin
         $listMapper
             ->addIdentifier('title')
             ->add('slug')
-//            ->add('tags')
         ;
     }
 } 

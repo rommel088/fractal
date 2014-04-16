@@ -1,12 +1,12 @@
 blog_homepage:
     pattern:  /
-    defaults: { _controller: BlogBundle:Blog:Index }
+    defaults: { _controller: BlogBundle:Blog:index }
 
 blog_post:
     pattern:  /post/{slug}
-    defaults: { _controller: BlogBundle:Blog:ShowPost }
+    defaults: { _controller: BlogBundle:Blog:showPost }
 
 blog_moreposts:
     pattern:  /moreposts
-    defaults: { _controller: BlogBundle:Blog:MorePosts }
+    defaults: { _controller: BlogBundle:Blog:morePosts }
 

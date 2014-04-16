@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -34,7 +34,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [BlogBundle]
+    bundles:        [BlogBundle,GuestBookBundle]
     java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -49,30 +49,36 @@ assetic:
           node: /usr/bin/node
           node_paths: [/usr/lib/node_modules]
           apply_to: "\.less$"
-#    assets:
-#        jquery_js:
-#            inputs:
-#                - '%kernel.root_dir%/../components/jquery/jquery.min.js'
-#            filters: [?yui_js]
-#        bootstrap_js:
-#            inputs:
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/transition.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/alert.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/modal.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/dropdown.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/scrollspy.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/tab.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/tooltip.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/popover.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/button.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/collapse.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/carousel.js'
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/js/affix.js'
-#            filters: [?yui_js]
-#        bootstrap_less:
-#            inputs:
-#                - '%kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less'
-#            filters: [lessphp,cssembed]
+    assets:
+        bootstrap_css:
+            inputs:
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/less/bootstrap.less
+                - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/less/form.less
+            filters:
+                - less
+                - cssrewrite
+            output: css/bootstrap.css
+        bootstrap_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/transition.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/alert.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/button.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/carousel.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/collapse.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/dropdown.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/modal.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/tooltip.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/popover.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/scrollspy.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/tab.js
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/js/affix.js
+                - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
+            output: js/bootstrap.js
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+                - %kernel.root_dir%/../src/Fractal/BlogBundle/Resources/public/js/jquery-2.0.2.min.js
+            output: js/jquery.js
 
 # Doctrine Configuration
 doctrine:
@@ -181,6 +187,9 @@ sonata_admin:
                 label_catalogue: FractalBlogBundle
                 items:
                     - sonata.admin.articles
+                    - sonata.admin.tags
+                    - sonata.admin.users
+
             acme.admin.group.blog:
                 items: ~
 #                item_adds:

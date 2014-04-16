@@ -1,0 +1,3 @@
+fractal_homepage:
+    pattern:  /
+    defaults: { _controller: FractalBundle:Fractal:index }
