@@ -22,7 +22,9 @@ class BlogController extends Controller
     {
         $viewBlog = $this->container->get('ViewBlog');
         $post = $viewBlog->showPost($slug);
-        return $this->render('BlogBundle::article.html.twig', array('article' => $post));
+        $sidebar = $viewBlog->showSideBar($this->container->getParameter('items_in_sidebar'));
+        return $this->render('BlogBundle::article.html.twig', array('article' => $post,
+                                                                    'sidebar' => $sidebar));
     }
 
     public function morePostsAction()

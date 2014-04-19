@@ -1,0 +1,22 @@
+{% extends "BlogBundle::body.html.twig" %}
+
+{% block content %}
+    <ul class="list-group">
+        {% for fractal in fractals %}
+
+            <li class="list-group-item"><a href="{{ path('fractal', {'slug': fractal.slug}) }}">{{ fractal.title }}</a></li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include("BlogBundle::sidebar.html.twig", {sidebar: sidebar}) }}
+{% endblock %}
+
+{% block footer %}
+    <div id="footer" class="container">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+        </div>
+    </div>
+{% endblock %}

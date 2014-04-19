@@ -189,6 +189,7 @@ sonata_admin:
                     - sonata.admin.articles
                     - sonata.admin.tags
                     - sonata.admin.users
+                    - sonata.admin.fractal
 
             acme.admin.group.blog:
                 items: ~

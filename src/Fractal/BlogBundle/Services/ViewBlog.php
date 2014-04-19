@@ -69,11 +69,11 @@ class ViewBlog
     {
         $em = $this->doctrine->getEntityManager();
         $query = $em->createQuery(
-            "SELECT p
+            'SELECT p
             FROM BlogBundle:Articles p
-            WHERE p.slug = '$slug'
-            ORDER BY p.created ASC"
-        )->setMaxResults(1);
+            WHERE p.slug = :slug
+            ORDER BY p.created ASC'
+        )->setParameter('slug', $slug);
         $articles = $query->getSingleResult();
 
         $result = "";
@@ -82,6 +82,7 @@ class ViewBlog
         $result['image'] = $articles->getImage();
         $result['body'] = $articles->getBody();
         $result['viewed'] = $articles->getViewed();
+        $result['tags'] = $this->getArticleTags($slug);
         $result['created'] = $articles->getCreated()->format('Y-m-d H:i:s');
         $result['updated'] = $articles->getCreated()->format('Y-m-d H:i:s');
 
@@ -152,5 +153,20 @@ class ViewBlog
         $sidebar['posts'] = $posts;
         $sidebar['cloud'] = $cloud->render();
         return $sidebar;
+    }
+
+    private function getArticleTags($slug)
+    {
+        $query = $this->doctrine->getManager()
+            ->createQuery(
+                "SELECT t.id,
+                        t.tag
+                     FROM BlogBundle:Articles content
+                     JOIN content.tags t
+                     WHERE content.slug = :slug
+                     ORDER BY content.created DESC"
+            )->setParameter('slug', $slug);
+        $tags = $query->getResult();
+        return $tags;
     }
 } 

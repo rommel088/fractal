@@ -2,11 +2,11 @@
 
 {% block body %}
     {% block menu %}{{ include("BlogBundle::_menu.html.twig") }}{% endblock %}
-    <div id="main-container" class="container">
-        <div id="content">
+    <div id="main-container" class="container raw">
+        <div id="content" class="col-md-8">
             {% block content %}{% endblock %}
         </div>
-        <div id="sidebar">
+        <div id="sidebar" class="col-md-4">
             {% block sidebar %}{% endblock %}
         </div>
     </div>

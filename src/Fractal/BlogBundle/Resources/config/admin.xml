@@ -32,5 +32,14 @@
                 <argument>FractalUserBundle</argument>
             </call>
         </service>
+        <service id="sonata.admin.fractal" class="Fractal\FractalBundle\Admin\FractalAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Content3" label="Fractal"/>
+            <argument />
+            <argument>Fractal\FractalBundle\Entity\Fractal</argument>
+            <argument />
+            <call method="setTranslationDomain">
+                <argument>FractalFractalBundle</argument>
+            </call>
+        </service>
     </services>
 </container>
